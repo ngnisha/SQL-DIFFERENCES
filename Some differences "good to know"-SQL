@@ -1,0 +1,77 @@
+Some differences are "Good to Know"
+1) HAVING vs WHERE Clause:
+WHERE Clause:
+Used with the SELECT statement to filter rows before grouping or aggregating.
+Applies conditions to individual rows before they are grouped or aggregated.
+Commonly used for filtering on non-aggregated columns.
+
+SELECT column1, COUNT(*)
+FROM table
+WHERE condition
+GROUP BY column1;
+HAVING Clause:
+Used with the GROUP BY statement to filter rows after grouping or aggregating.
+Applies conditions to aggregated values, often used with aggregate functions like COUNT, SUM, AVG.
+Commonly used for filtering on aggregated results.
+
+SELECT column1, COUNT(*)
+FROM table
+GROUP BY column1
+HAVING COUNT(*) > 1;
+
+2) Joins vs UNION / UNION ALL:
+Joins:
+Combines rows from two or more tables based on a related column.
+Different types of joins include INNER JOIN, LEFT JOIN, RIGHT JOIN, and FULL JOIN.
+Joins are used to retrieve columns from multiple tables in a single result set.
+
+SELECT *
+FROM table1
+INNER JOIN table2 ON table1.column = table2.column;
+UNION / UNION ALL:
+Combines the result sets of two or more SELECT statements.
+UNION removes duplicate rows, while UNION ALL includes all rows, even duplicates.
+The number and order of columns must be the same in all SELECT statements.
+
+SELECT column1 FROM table1
+UNION
+SELECT column1 FROM table2;
+
+3) MERGE vs UNION ALL / UNION:
+MERGE
+Used to perform insert, update, or delete operations based on a specified condition.
+Commonly used for upsert operations (insert if not exists, else update).
+Requires the target table to be specified and involves more complex syntax.
+
+MERGE INTO target_table
+USING source_table
+ON condition
+WHEN MATCHED THEN
+ UPDATE SET column1 = value1
+WHEN NOT MATCHED THEN
+ INSERT (column1, column2) VALUES (value1, value2);
+UNION / UNION ALL:
+Combines rows from two or more SELECT statements.
+Does not involve updates or deletes; it's purely for combining results.
+Simpler syntax compared to MERGE.
+
+4) INTERSECT, MERGE, UNION, UNION ALL, JOIN:
+INTERSECT :
+Returns only the common rows between two SELECT statements.
+Requires that the number and order of columns in the SELECT statements be the same.
+
+SELECT column1 FROM table1
+INTERSECT
+SELECT column1 FROM table2;
+MERGE :
+Performs insert, update, or delete operations based on a condition.
+Involves modifying data in the target table based on the source table.
+
+UNION/ UNION ALL :
+Combines the result sets of two or more SELECT statements.
+UNION removes duplicates, while UNION ALL includes all rows.
+
+JOIN:
+Combines rows from two or more tables based on a related column.
+Different types of joins include INNER JOIN, LEFT JOIN, RIGHT JOIN, and FULL JOIN.
+Used to retrieve columns from multiple tables in a single result set.
